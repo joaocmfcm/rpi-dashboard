@@ -19,5 +19,5 @@ Node.js
 ## Usage
 Use **/api/(method)** to fetch the data from the API (JSON only support).
 
-#### Methods
-/api/system
+### Methods
+1. /api/system - retrieves the OS and the hardware information
