@@ -17,7 +17,7 @@ The application can be called on the http://localhost:3000
 Node.js
 
 ## Usage
-Use */api/(method)* to fetch the data from the API (JSON only support).
+Use **/api/(method)** to fetch the data from the API (JSON only support).
 
 ### Methods
 /api/system
