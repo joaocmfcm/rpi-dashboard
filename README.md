@@ -11,13 +11,13 @@ npm install
 ```
 node api.js
 ```
-The application can be called on the http://localhost:3000/
+The application can be called on the http://localhost:3000
 
 ## Dependencies
 Node.js
 
 ## Usage
-Use /api/(method) to fetch the data from the API (JSON only support).
+Use */api/(method)* to fetch the data from the API (JSON only support).
 
 ### Methods
 /api/system
