@@ -20,4 +20,4 @@ Node.js
 Use **/api/(method)** to fetch the data from the API (JSON only support).
 
 ### Methods
-* **/api/system** - retrieves the OS and the hardware information
+* **/api/system** - retrieves the OS and the hardware information;
