@@ -4,43 +4,51 @@
  */
 var si = require('systeminformation');
 
-getSystemInformation = function(callback){
+var logger = require('./logger.js');
+
+getSystemInformation = function(req, res, next){
 	var systemInformation = {};
 	_getHardwareInformation(function(hardwareData){
 		_getOSInformation(function(OSData){
 			systemInformation = {hardware: hardwareData, os: OSData};
-			callback(systemInformation);
+			logger.logObject(systemInformation);
+			res.json(systemInformation);
 		});
 	});
 };
 
-getCPUInformation = function(callback){
+getCPUInformation = function(req, res, next){
 	_getCPUInformation(function(CPUData){
-		callback(CPUData);
+		res.json(CPUData);
+		next();
 	});
 };
 
-getCPUCurrentSpeed = function(callback){
+getCPUCurrentSpeed = function(req, res, next){
 	_getCPUCurrentSpeed(function(CPUSpeedData){
-		callback(CPUSpeedData);
+		res.json(CPUSpeedData);
+		next();
 	});
 };
 
-getCPUCurrentTemperature = function(callback){
+getCPUCurrentTemperature = function(req, res, next){
 	_getCPUCurrentTemperature(function(CPUTemperatureData){
-		callback(CPUTemperatureData);
+		res.json(CPUTemperatureData);
+		next();
 	});
 };
 
-getRAMUsage = function(callback){
+getRAMUsage = function(req, res, next){
 	_getRAMUsage(function(RAMUsageData){
-		callback(RAMUsageData);
+		res.json(RAMUsageData);
+		next();
 	});
 };
 
-getDrives = function(callback){
+getDrives = function(req, res, next){
 	_getDrives(function(drivesData){
-		callback(drivesData);
+		res.json(drivesData);
+		next();
 	});
 };
 
