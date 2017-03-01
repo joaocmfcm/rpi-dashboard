@@ -1,6 +1,6 @@
 # rpi-dashboard
 
-This small project that consists on an Express Node.js application that serves a REST API with the system and OS information of a machine. Primarily, this project is targetted to be used on a Paspberry Pi. Although, it can be also deployed on a Windows or Mac OSx.
+This is a small project that consists on an Express Node.js application that serves a REST API with the system and OS information of a machine. Primarily, this project is targetted to be used on a Paspberry Pi, although, it can be also deployed on a Windows or Mac OSX.
 
 ## Install
 ```
