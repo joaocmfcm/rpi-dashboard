@@ -18,79 +18,85 @@ getSystemInformation = function(req, res, next){
 };
 
 getCPUInformation = function(req, res, next){
-	var cpuInformation = {};
-	_getCPUInformation(function(CPUData){
-		_getCPUCurrentSpeed(function(CPUSpeedData){
-			_getCPUCurrentTemperature(function(CPUTemperatureData){
-				_getCPUCurrentTemperature(function(CPUCurrentLoadData){
-					_getCPUFullLoad(function(CPUFullLoadData){
-						cpuInformation = {info: CPUData, speed: CPUSpeedData, temperature: CPUTemperatureData, load: CPUCurrentLoadData, fullLoad: CPUFullLoadData};
-						res.json(cpuInformation);
-					});
-				});
-			});
-		});
+	var p1 = new Promise(_getCPUInformation);
+	var p2 = new Promise(_getCPUCurrentSpeed);
+	var p3 = new Promise(_getCPUCurrentTemperature);
+	var p4 = new Promise(_getCPUCurrentLoad);
+	var p5 = new Promise(_getCPUFullLoad);
+
+	Promise.all([p1, p2, p3, p4, p5]).then(function(values) {
+		var cpuInformation = {info: values[0], speed: values[1], temperature: values[2], load: values[3], fullLoad: values[4]};
+		res.json(cpuInformation);
+	}).catch(function(error) {
+		res.status(500).json(error);
 	});
 };
 
 getRAMUsage = function(req, res, next){
-	_getRAMUsage(function(RAMUsageData){
-		res.json(RAMUsageData);
+	var promise = new Promise(_getRAMUsage).then(function(data){
+		res.json(data);
+	}).catch(function(error){
+		res.status(500).json(error);
 	});
 };
 
 getDrives = function(req, res, next){
-	_getDrives(function(drivesData){
-		res.json(drivesData);
+	var promise = new Promise(_getDrives).then(function(data){
+		res.json(data);
+	}).catch(function(error){
+		res.status(500).json(error);
 	});
 };
 
 getService = function(req, res, next){
 	if(req.params.serviceId){
-		_getService(req.params.serviceId, function(serviceData){
-			res.json(serviceData);
+		var promise = new Promise(_getService.bind('serviceName', req.params.serviceId)).then(function(data){
+			res.json(data);
+		}).catch(function(error){
+			res.status(500).json(error);
 		});
 	}
 };
 
-_getHardwareInformation = function(callback){
-	return si.system(callback);
+// Private methods to directly consume the systeminformation lib.
+_getHardwareInformation = function(resolve, reject){
+	return si.system().then(data => resolve(data)).catch(error => reject(error));
 };
 
-_getOSInformation = function(callback){
-	return si.osInfo(callback);
+_getOSInformation = function(resolve, reject){
+	return si.osInfo().then(data => resolve(data)).catch(error => reject(error));
 };
 
-_getCPUInformation = function(callback){
-	return si.cpu(callback);
+_getCPUInformation = function(resolve, reject){
+	return si.cpu().then(data => resolve(data)).catch(error => reject(error));
 };
 
-_getCPUCurrentSpeed = function(callback){
-	return si.cpuCurrentspeed(callback);
+_getCPUCurrentSpeed = function(resolve, reject){
+	return si.cpuCurrentspeed().then(data => resolve(data)).catch(error => reject(error));
 };
 
-_getCPUCurrentLoad = function(callback){
-	return si.currentLoad(callback);
+_getCPUCurrentLoad = function(resolve, reject){
+	return si.currentLoad().then(data => resolve(data)).catch(error => reject(error));
 };
 
-_getCPUFullLoad = function(callback){
-	return si.fullLoad(callback);
+_getCPUFullLoad = function(resolve, reject){
+	return si.fullLoad().then(data => resolve(data)).catch(error => reject(error));
 };
 
-_getCPUCurrentTemperature = function(callback){
-	return si.cpuTemperature(callback);
+_getCPUCurrentTemperature = function(resolve, reject){
+	return si.cpuTemperature().then(data => resolve(data)).catch(error => reject(error));
 };
 
-_getRAMUsage = function(callback){
-	return si.mem(callback);
+_getRAMUsage = function(resolve, reject){
+	return si.mem().then(data => resolve(data)).catch(error => reject(error));
 };
 
-_getDrives = function(callback){
-	return si.fsSize(callback);
+_getDrives = function(resolve, reject){
+	return si.fsSize().then(data => resolve(data)).catch(error => reject(error));
 };
 
-_getService = function(serviceName, callback){
-	return si.services(serviceName, callback);
+_getService = function(serviceName, resolve, reject){
+	return si.services(serviceName).then(data => resolve(data)).catch(error => reject(error));
 };
 
 module.exports = {
