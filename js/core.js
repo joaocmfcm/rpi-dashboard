@@ -18,38 +18,39 @@ getSystemInformation = function(req, res, next){
 };
 
 getCPUInformation = function(req, res, next){
+	var cpuInformation = {};
 	_getCPUInformation(function(CPUData){
-		res.json(CPUData);
-		next();
-	});
-};
-
-getCPUCurrentSpeed = function(req, res, next){
-	_getCPUCurrentSpeed(function(CPUSpeedData){
-		res.json(CPUSpeedData);
-		next();
-	});
-};
-
-getCPUCurrentTemperature = function(req, res, next){
-	_getCPUCurrentTemperature(function(CPUTemperatureData){
-		res.json(CPUTemperatureData);
-		next();
+		_getCPUCurrentSpeed(function(CPUSpeedData){
+			_getCPUCurrentTemperature(function(CPUTemperatureData){
+				_getCPUCurrentTemperature(function(CPUCurrentLoadData){
+					_getCPUFullLoad(function(CPUFullLoadData){
+						cpuInformation = {info: CPUData, speed: CPUSpeedData, temperature: CPUTemperatureData, load: CPUCurrentLoadData, fullLoad: CPUFullLoadData};
+						res.json(cpuInformation);
+					});
+				});
+			});
+		});
 	});
 };
 
 getRAMUsage = function(req, res, next){
 	_getRAMUsage(function(RAMUsageData){
 		res.json(RAMUsageData);
-		next();
 	});
 };
 
 getDrives = function(req, res, next){
 	_getDrives(function(drivesData){
 		res.json(drivesData);
-		next();
 	});
+};
+
+getService = function(req, res, next){
+	if(req.params.serviceId){
+		_getService(req.params.serviceId, function(serviceData){
+			res.json(serviceData);
+		});
+	}
 };
 
 _getHardwareInformation = function(callback){
@@ -65,7 +66,15 @@ _getCPUInformation = function(callback){
 };
 
 _getCPUCurrentSpeed = function(callback){
-	return si.cpuCurrentSpeed(callback);
+	return si.cpuCurrentspeed(callback);
+};
+
+_getCPUCurrentLoad = function(callback){
+	return si.currentLoad(callback);
+};
+
+_getCPUFullLoad = function(callback){
+	return si.fullLoad(callback);
 };
 
 _getCPUCurrentTemperature = function(callback){
@@ -77,14 +86,17 @@ _getRAMUsage = function(callback){
 };
 
 _getDrives = function(callback){
-	return si.blockDevices(callback);
+	return si.fsSize(callback);
+};
+
+_getService = function(serviceName, callback){
+	return si.services(serviceName, callback);
 };
 
 module.exports = {
 	getSystemInformation: getSystemInformation,
 	getCPUInformation: getCPUInformation,
-	getCPUCurrentSpeed: getCPUCurrentSpeed,
-	getCPUCurrentTemperature: getCPUCurrentTemperature,
 	getRAMUsage: getRAMUsage,
-	getDrives: getDrives
+	getDrives: getDrives,
+	getService: getService
 };
