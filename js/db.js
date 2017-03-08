@@ -19,13 +19,11 @@ _createService = function(req, res){
 };
 
 _readServices = function(req, res){
-	var query = '',
-		limit = 1000,
-		sort = '+name';
+	var query, sort, limit;
 		
-	if(req.query.query) query = req.query.query;
-	if(req.query.limit) limit = Number(req.query.limit);
-	if(req.query.sort) sort = req.query.sort;
+	query = req.query.query ? req.query.query : '';
+	limit = req.query.limit ? Number(req.query.limit) : 1000;
+	sort = req.query.sort ? req.query.sort : '+name';
 
 	var promise = new Promise(service.read.bind('data', query, limit, sort)).then(result => {
 		logger.logObject(result);
