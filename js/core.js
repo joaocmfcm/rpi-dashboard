@@ -7,13 +7,15 @@ var si = require('systeminformation');
 var logger = require('./logger.js');
 
 getSystemInformation = function(req, res, next){
-	var systemInformation = {};
-	_getHardwareInformation(function(hardwareData){
-		_getOSInformation(function(OSData){
-			systemInformation = {hardware: hardwareData, os: OSData};
-			logger.logObject(systemInformation);
-			res.json(systemInformation);
-		});
+	var p1 = new Promise(_getHardwareInformation);
+	var p2 = new Promise(_getOSInformation);
+
+	Promise.all([p1, p2]).then(values => {
+		var systemInformation = {hardware: values[0], os: values[1]};
+		logger.logObject(systemInformation);
+		res.json(systemInformation);
+	}).catch(error => {
+		res.status(500).json(error);
 	});
 };
 
@@ -24,35 +26,40 @@ getCPUInformation = function(req, res, next){
 	var p4 = new Promise(_getCPUCurrentLoad);
 	var p5 = new Promise(_getCPUFullLoad);
 
-	Promise.all([p1, p2, p3, p4, p5]).then(function(values) {
+	Promise.all([p1, p2, p3, p4, p5]).then(values => {
 		var cpuInformation = {info: values[0], speed: values[1], temperature: values[2], load: values[3], fullLoad: values[4]};
+		logger.logObject(cpuInformation);
 		res.json(cpuInformation);
-	}).catch(function(error) {
+	}).catch(error => {
 		res.status(500).json(error);
 	});
 };
 
 getRAMUsage = function(req, res, next){
-	var promise = new Promise(_getRAMUsage).then(function(data){
+	var promise = new Promise(_getRAMUsage).then(data => {
+		logger.logObject(data);
 		res.json(data);
-	}).catch(function(error){
+	}).catch(error => {
 		res.status(500).json(error);
 	});
 };
 
 getDrives = function(req, res, next){
-	var promise = new Promise(_getDrives).then(function(data){
+	var promise = new Promise(_getDrives).then(data => {
+		logger.logObject(data);
 		res.json(data);
-	}).catch(function(error){
+	}).catch(error => {
 		res.status(500).json(error);
 	});
 };
 
 getService = function(req, res, next){
 	if(req.params.serviceId){
-		var promise = new Promise(_getService.bind('serviceName', req.params.serviceId)).then(function(data){
+		var promise = new Promise(_getService.bind('serviceName', req.params.serviceId)).then(data => {
+			logger.logObject(data);
 			res.json(data);
-		}).catch(function(error){
+
+		}).catch(error => {
 			res.status(500).json(error);
 		});
 	}
