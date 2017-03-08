@@ -4,7 +4,7 @@ var app = express();
 
 var bodyParser = require('body-parser');
 
-var routes = require('./js/routes')
+var routes = require('./js/routes');
 
 app.set('port', process.env.PORT || 3000);
 
