@@ -11,9 +11,9 @@ getSystemInformation = function(req, res, next){
 	var p2 = new Promise(_getOSInformation);
 
 	Promise.all([p1, p2]).then(values => {
-		var systemInformation = {hardware: values[0], os: values[1]};
-		logger.logObject(systemInformation);
-		res.json(systemInformation);
+		var data = {hardware: values[0], os: values[1]};
+		logger.logObject(data);
+		res.json(data);
 	}).catch(error => {
 		res.status(500).json(error);
 	});
@@ -27,9 +27,9 @@ getCPUInformation = function(req, res, next){
 	var p5 = new Promise(_getCPUFullLoad);
 
 	Promise.all([p1, p2, p3, p4, p5]).then(values => {
-		var cpuInformation = {info: values[0], speed: values[1], temperature: values[2], load: values[3], fullLoad: values[4]};
-		logger.logObject(cpuInformation);
-		res.json(cpuInformation);
+		var data = {info: values[0], speed: values[1], temperature: values[2], load: values[3], fullLoad: values[4]};
+		logger.logObject(data);
+		res.json(data);
 	}).catch(error => {
 		res.status(500).json(error);
 	});
