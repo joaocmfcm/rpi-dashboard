@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var core = require('./core.js');
+var db = require('./db.js');
 
 var logger = require('./logger.js');
 
@@ -29,5 +30,8 @@ router.get('/api/cpu', core.getCPUInformation);
 router.get('/api/ram', core.getRAMUsage);
 router.get('/api/drives', core.getDrives);
 router.get('/api/service/:serviceId', core.getService);
+
+router.get('/api/service', db.readServices);
+router.post('/api/service', db.createService);
 
 module.exports = router;

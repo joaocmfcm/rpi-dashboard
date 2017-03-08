@@ -6,7 +6,12 @@ var bodyParser = require('body-parser');
 
 var routes = require('./js/routes');
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/rpi-dashboard');
+mongoose.Promise = global.Promise;
+
 app.set('port', process.env.PORT || 3000);
+app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
