@@ -21,7 +21,6 @@ Service.create = function(data, resolve, reject){
 };
 
 Service.read = function(query, limit, sort, resolve, reject){
-	console.log(query, limit, sort);
 	Service.find({'name': query}).limit(limit).sort(sort).then(result => resolve(result)).catch(error => reject(error));	
 };
 

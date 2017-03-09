@@ -1,6 +1,6 @@
 /**
  * @description
- * Service that displays the interfaces to communicate with models in the DB
+ * Service that provides the interfaces to communicate with models in the DB
  * @observations
  * 
  */

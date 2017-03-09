@@ -5,6 +5,7 @@ var app = express();
 var bodyParser = require('body-parser');
 
 var routes = require('./js/routes');
+var logger = require('./js/logger.js');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/rpi-dashboard');
@@ -28,5 +29,5 @@ app.use(function (req, res, next) {
 });
 
 app.listen(app.get('port'), function(){
-	console.log("RPi system information API is now running");
+	logger.logInfo("RPi system information API is now running");
 });
