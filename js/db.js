@@ -10,7 +10,7 @@ var logger = require('./logger.js');
 
 _createService = function(req, res){
 	var data = req.body;
-	var promise = new Promise(service.add.bind('data', data)).then(result => {
+	var promise = new Promise(service.add.bind(null, data)).then(result => {
 		logger.logObject(result);
 		res.json(result);
 	}).catch(error => {
@@ -25,7 +25,7 @@ _readServices = function(req, res){
 	limit = req.query.limit ? Number(req.query.limit) : 1000;
 	sort = req.query.sort ? req.query.sort : '+name';
 
-	var promise = new Promise(service.read.bind('data', query, limit, sort)).then(result => {
+	var promise = new Promise(service.read.bind(null, query, limit, sort)).then(result => {
 		logger.logObject(result);
 		res.json(result);
 	}).catch(error => {

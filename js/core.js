@@ -1,14 +1,15 @@
 /**
  * @description
- * Service that consumes and processes data from the systeminformation node.js lib that will be served by the REST API.
+ * Service that consumes and processes data from the systeminformation connector
  */
-var si = require('systeminformation');
 
 var logger = require('./logger.js');
 
+var siConnector = require('./si-connector.js');
+
 getSystemInformation = function(req, res, next){
-	var p1 = new Promise(_getHardwareInformation);
-	var p2 = new Promise(_getOSInformation);
+	var p1 = new Promise(siConnector.getHardwareInformation);
+	var p2 = new Promise(siConnector.getOSInformation);
 
 	Promise.all([p1, p2]).then(values => {
 		var data = {hardware: values[0], os: values[1]};
@@ -20,11 +21,11 @@ getSystemInformation = function(req, res, next){
 };
 
 getCPUInformation = function(req, res, next){
-	var p1 = new Promise(_getCPUInformation);
-	var p2 = new Promise(_getCPUCurrentSpeed);
-	var p3 = new Promise(_getCPUCurrentTemperature);
-	var p4 = new Promise(_getCPUCurrentLoad);
-	var p5 = new Promise(_getCPUFullLoad);
+	var p1 = new Promise(siConnector.getCPUInformation);
+	var p2 = new Promise(siConnector.getCPUCurrentSpeed);
+	var p3 = new Promise(siConnector.getCPUCurrentTemperature);
+	var p4 = new Promise(siConnector.getCPUCurrentLoad);
+	var p5 = new Promise(siConnector.getCPUFullLoad);
 
 	Promise.all([p1, p2, p3, p4, p5]).then(values => {
 		var data = {info: values[0], speed: values[1], temperature: values[2], load: values[3], fullLoad: values[4]};
@@ -36,7 +37,7 @@ getCPUInformation = function(req, res, next){
 };
 
 getRAMUsage = function(req, res, next){
-	var promise = new Promise(_getRAMUsage).then(data => {
+	var promise = new Promise(siConnector.getRAMUsage).then(data => {
 		logger.logObject(data);
 		res.json(data);
 	}).catch(error => {
@@ -45,7 +46,7 @@ getRAMUsage = function(req, res, next){
 };
 
 getDrives = function(req, res, next){
-	var promise = new Promise(_getDrives).then(data => {
+	var promise = new Promise(siConnector.getDrives).then(data => {
 		logger.logObject(data);
 		res.json(data);
 	}).catch(error => {
@@ -55,7 +56,7 @@ getDrives = function(req, res, next){
 
 getService = function(req, res, next){
 	if(req.params.serviceId){
-		var promise = new Promise(_getService.bind('serviceName', req.params.serviceId)).then(data => {
+		var promise = new Promise(siConnector.getService.bind(null, req.params.serviceId)).then(data => {
 			logger.logObject(data);
 			res.json(data);
 
@@ -63,47 +64,6 @@ getService = function(req, res, next){
 			res.status(500).json(error);
 		});
 	}
-};
-
-// Private methods to directly consume the systeminformation lib.
-_getHardwareInformation = function(resolve, reject){
-	return si.system().then(data => resolve(data)).catch(error => reject(error));
-};
-
-_getOSInformation = function(resolve, reject){
-	return si.osInfo().then(data => resolve(data)).catch(error => reject(error));
-};
-
-_getCPUInformation = function(resolve, reject){
-	return si.cpu().then(data => resolve(data)).catch(error => reject(error));
-};
-
-_getCPUCurrentSpeed = function(resolve, reject){
-	return si.cpuCurrentspeed().then(data => resolve(data)).catch(error => reject(error));
-};
-
-_getCPUCurrentLoad = function(resolve, reject){
-	return si.currentLoad().then(data => resolve(data)).catch(error => reject(error));
-};
-
-_getCPUFullLoad = function(resolve, reject){
-	return si.fullLoad().then(data => resolve(data)).catch(error => reject(error));
-};
-
-_getCPUCurrentTemperature = function(resolve, reject){
-	return si.cpuTemperature().then(data => resolve(data)).catch(error => reject(error));
-};
-
-_getRAMUsage = function(resolve, reject){
-	return si.mem().then(data => resolve(data)).catch(error => reject(error));
-};
-
-_getDrives = function(resolve, reject){
-	return si.fsSize().then(data => resolve(data)).catch(error => reject(error));
-};
-
-_getService = function(serviceName, resolve, reject){
-	return si.services(serviceName).then(data => resolve(data)).catch(error => reject(error));
 };
 
 module.exports = {
