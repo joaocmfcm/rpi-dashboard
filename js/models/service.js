@@ -16,7 +16,7 @@ var serviceSchema = new Schema({
 var Service = mongoose.model('Service', serviceSchema);
 
 // Model methods
-Service.create = function(data, resolve, reject){
+Service.add = function(data, resolve, reject){
 	Service.create(data).then(result => resolve(result)).catch(error => reject(error));	
 };
 
