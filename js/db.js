@@ -14,6 +14,7 @@ _createService = function(req, res){
 		logger.logObject(result);
 		res.json(result);
 	}).catch(error => {
+		logger.logError(error);
 		res.status(500).json(error);
 	});
 };
@@ -29,6 +30,7 @@ _readServices = function(req, res){
 		logger.logObject(result);
 		res.json(result);
 	}).catch(error => {
+		logger.logError(error);
 		res.status(500).json(error);
 	});
 };

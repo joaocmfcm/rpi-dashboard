@@ -16,6 +16,7 @@ getSystemInformation = function(req, res, next){
 		logger.logObject(data);
 		res.json(data);
 	}).catch(error => {
+		logger.logError(error);
 		res.status(500).json(error);
 	});
 };
@@ -32,6 +33,7 @@ getCPUInformation = function(req, res, next){
 		logger.logObject(data);
 		res.json(data);
 	}).catch(error => {
+		logger.logError(error);
 		res.status(500).json(error);
 	});
 };
@@ -41,6 +43,7 @@ getRAMUsage = function(req, res, next){
 		logger.logObject(data);
 		res.json(data);
 	}).catch(error => {
+		logger.logError(error);
 		res.status(500).json(error);
 	});
 };
@@ -50,6 +53,7 @@ getDrives = function(req, res, next){
 		logger.logObject(data);
 		res.json(data);
 	}).catch(error => {
+		logger.logError(error);
 		res.status(500).json(error);
 	});
 };
@@ -61,6 +65,7 @@ getService = function(req, res, next){
 			res.json(data);
 
 		}).catch(error => {
+			logger.logError(error);
 			res.status(500).json(error);
 		});
 	}
