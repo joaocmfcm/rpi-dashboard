@@ -21,7 +21,14 @@ Service.add = function(data, resolve, reject){
 };
 
 Service.read = function(query, limit, sort, resolve, reject){
-	Service.find({'name': query}).limit(limit).sort(sort).then(result => resolve(result)).catch(error => reject(error));	
+	Service.find({'name': new RegExp(query, 'i')}).limit(limit).sort(sort).then(result => resolve(result)).catch(error => reject(error));	
+};
+
+Service.edit = function(data, resolve, reject){
+	var id = data._id;
+	delete data._id;
+	console.log(data);
+	Service.update({'_id': id}, data).then(result => resolve(result)).catch(error => reject(error));	
 };
 
 module.exports = Service;

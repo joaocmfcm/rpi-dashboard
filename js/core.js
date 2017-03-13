@@ -69,6 +69,9 @@ getService = function(req, res, next){
 			res.status(500).json(error);
 		});
 	}
+	else{
+		res.status(404).json('Service ID not provided.');
+	}
 };
 
 module.exports = {

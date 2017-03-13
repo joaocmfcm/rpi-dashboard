@@ -35,7 +35,20 @@ _readServices = function(req, res){
 	});
 };
 
+_editService = function(req, res){
+	var data = req.body;
+
+	var promise = new Promise(service.edit.bind(null, data)).then(result => {
+		logger.logObject(result);
+		res.json(result);
+	}).catch(error => {
+		logger.logError(error);
+		res.status(500).json(error);
+	});
+};
+
 module.exports = {
 	createService: _createService,
-	readServices: _readServices
+	readServices: _readServices,
+	editService: _editService
 };

@@ -31,7 +31,9 @@ router.get('/api/ram', core.getRAMUsage);
 router.get('/api/drives', core.getDrives);
 router.get('/api/service/:serviceId', core.getService);
 
-router.get('/api/service', db.readServices);
-router.post('/api/service', db.createService);
+router.get('/api/dashboard/service', db.readServices);
+router.post('/api/dashboard/service', db.createService);
+router.put('/api/dashboard/service', db.editService);
+/*router.delete('/api/dashboard/service', db.deleteService);*/
 
 module.exports = router;
