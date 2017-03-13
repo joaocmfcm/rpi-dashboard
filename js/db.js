@@ -47,8 +47,21 @@ _editService = function(req, res){
 	});
 };
 
+_deleteService = function(req, res){
+	var id = req.params.id;
+
+	var promise = new Promise(service.delete.bind(null, id)).then(result => {
+		logger.logObject(result);
+		res.json(result);
+	}).catch(error => {
+		logger.logError(error);
+		res.status(500).json(error);
+	});
+};
+
 module.exports = {
 	createService: _createService,
 	readServices: _readServices,
-	editService: _editService
+	editService: _editService,
+	deleteService: _deleteService
 };

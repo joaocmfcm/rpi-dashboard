@@ -27,8 +27,11 @@ Service.read = function(query, limit, sort, resolve, reject){
 Service.edit = function(data, resolve, reject){
 	var id = data._id;
 	delete data._id;
-	console.log(data);
 	Service.update({'_id': id}, data).then(result => resolve(result)).catch(error => reject(error));	
+};
+
+Service.delete = function(id, resolve, reject){
+	Service.remove({'_id': id}).then(result => resolve(result)).catch(error => reject(error));	
 };
 
 module.exports = Service;

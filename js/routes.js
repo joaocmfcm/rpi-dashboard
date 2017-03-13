@@ -29,11 +29,11 @@ router.get('/api/system', core.getSystemInformation);
 router.get('/api/cpu', core.getCPUInformation);
 router.get('/api/ram', core.getRAMUsage);
 router.get('/api/drives', core.getDrives);
-router.get('/api/service/:serviceId', core.getService);
+router.get('/api/service/:serviceName', core.getService);
 
 router.get('/api/dashboard/service', db.readServices);
 router.post('/api/dashboard/service', db.createService);
 router.put('/api/dashboard/service', db.editService);
-/*router.delete('/api/dashboard/service', db.deleteService);*/
+router.delete('/api/dashboard/service/:id', db.deleteService);
 
 module.exports = router;

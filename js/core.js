@@ -59,8 +59,8 @@ getDrives = function(req, res, next){
 };
 
 getService = function(req, res, next){
-	if(req.params.serviceId){
-		var promise = new Promise(siConnector.getService.bind(null, req.params.serviceId)).then(data => {
+	if(req.params.serviceName){
+		var promise = new Promise(siConnector.getService.bind(null, req.params.serviceName)).then(data => {
 			logger.logObject(data);
 			res.json(data);
 
