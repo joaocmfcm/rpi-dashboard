@@ -20,6 +20,7 @@ mongoose.connect('mongodb://localhost/rpi-dashboard');
 
 ## Dependencies
 Node.js
+MongoDB
 
 ## Usage
 Use **/api/(method)** to fetch the data from the API (JSON only support).
