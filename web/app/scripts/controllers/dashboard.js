@@ -1,21 +1,23 @@
-'use strict';
+(function(){
+	'use strict';
 
-/**
- * @description
- * Dashboard main controller
- * @observations
- * 
- */
+	/**
+	 * @description
+	 * Dashboard main controller
+	 * @observations
+	 * 
+	 */
 
-angular
-	.module('dashboardApp')
-	.controller('DashboardController', DashboardController);
+	angular
+		.module('dashboardApp')
+		.controller('DashboardController', DashboardController);
 
-DashboardController.$inject = [];
+	DashboardController.$inject = [];
 
-function DashboardController(){
-	/* jshint validthis: true */
-	var vm = this;
+	function DashboardController(){
+		/* jshint validthis: true */
+		var vm = this;
 
-	vm.title = 'hello dashboard';
-}
+		vm.title = 'dash';
+	}
+})();

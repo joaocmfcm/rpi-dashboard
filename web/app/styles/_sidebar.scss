@@ -1,0 +1,26 @@
+/***
+**** Sidebar selectors
+***/
+
+$sidebar-shadow: 1px 1px 1px lighten($sidebar-color, 10%);
+
+.sidebar-frame{
+	position: fixed;
+    top: 0px;
+    bottom: 0px;
+	background-color: $sidebar-color;
+	width: $sidebar-width;
+	box-shadow: $sidebar-shadow;
+}
+
+.sidebar-container{
+	margin-top: $default-margin*2;
+}
+
+.sidebar-menu{
+	list-style-type: none;
+	margin: 0;
+    padding: 0;
+	text-align: center;
+	color: $dashboard-green;
+}

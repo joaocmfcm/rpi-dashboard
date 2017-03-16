@@ -1,23 +1,26 @@
-'use strict';
+(function(){
+	'use strict';
 
-/**
- * @description
- * Application core configurations
- * @observations
- * 
- */
+	/**
+	 * @description
+	 * Application core configurations
+	 * @observations
+	 * 
+	 */
 
-angular.module('dashboardApp')
-	.run(runBlock)
-	.config(configBlock);
+	angular
+		.module('dashboardApp')
+		.run(runBlock)
+		.config(configBlock);
 
-runBlock.$inject = [];
-configBlock.$inject = [];
+	runBlock.$inject = [];
+	configBlock.$inject = [];
 
-function runBlock(){
+	function runBlock(){
 
-}
+	}
 
-function configBlock(){
+	function configBlock(){
 
-}
+	}
+})();

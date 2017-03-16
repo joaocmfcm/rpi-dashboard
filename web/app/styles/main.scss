@@ -9,11 +9,19 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 /***
 **** SCSS imports
 ***/
+@import "_sidebar.scss";
 
 
 /***
 **** General selectors
 ***/
 body{
+	background-color: $background-color;
+	color: $white;
+	font: $font-family-base;
+}
 
+.dashboard{
+	margin-top: $default-margin*2;
+	margin-left: $sidebar-width;
 }
