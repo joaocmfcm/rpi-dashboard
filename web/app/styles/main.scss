@@ -10,6 +10,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 **** SCSS imports
 ***/
 @import "_sidebar.scss";
+@import "_cards.scss";
 
 
 /***
@@ -22,7 +23,7 @@ body{
 }
 
 .dashboard{
-	margin-top: $default-margin*2;
+	margin-top: $default-margin*4;
 	margin-left: $sidebar-width;
 }
 

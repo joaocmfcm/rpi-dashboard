@@ -24,9 +24,16 @@
     	_getSystemInformation();
     	function _getSystemInformation(){
     		RestApiService.system.$get().then(function(result){
-    			console.log(result);
+    			if(result.data){
+    				if(result.data.os){
+    					vm.os = result.data.os;
+    				}
+    				if(result.data.hardware){
+    					vm.hardware = result.data.hardware;
+    				}
+    			}
     		}, function(error){
-
+    			// TODO: show error
     		});
     	}
     }

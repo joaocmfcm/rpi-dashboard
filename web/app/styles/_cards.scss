@@ -1,0 +1,31 @@
+/***
+**** Cards selectors
+***/
+
+.card-container{
+	background-color: $sidebar-color;
+	padding: $default-margin;
+	
+	dl{
+		margin-bottom: 0px;
+		dt{
+			color: $grey;
+			text-transform: uppercase;
+		}
+
+		dd{
+
+		}
+	}
+
+	.card-title{
+		text-transform: uppercase;
+		margin-top: 0px;
+		color: $white;
+		position: absolute;
+		top: -33px;
+		left: 0px;
+		padding: $default-margin/4 $default-margin;
+		background-color: lighten($sidebar-color, 0%);
+	}
+}

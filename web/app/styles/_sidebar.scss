@@ -10,7 +10,6 @@ $sidebar-shadow: 1px 1px 1px lighten($sidebar-color, 10%);
     bottom: 0px;
 	background-color: $sidebar-color;
 	width: $sidebar-width;
-	box-shadow: $sidebar-shadow;
 }
 
 .sidebar-container{
@@ -22,5 +21,10 @@ $sidebar-shadow: 1px 1px 1px lighten($sidebar-color, 10%);
 	margin: 0;
     padding: 0;
 	text-align: center;
-	color: $dashboard-green;
+	a{
+		color: $white;
+		&:hover{
+			color: $grey;
+		}
+	}
 }

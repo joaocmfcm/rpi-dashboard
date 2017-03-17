@@ -20,12 +20,11 @@
     			return $http({method: 'GET', url: networkConstants.apiUrl + 'system'});
     		}
         }
+
         var api = {
             system: system
         };
-        return api;
 
-        
-
+        return api;       
     }
 })();
