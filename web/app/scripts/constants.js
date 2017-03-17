@@ -10,5 +10,5 @@
 
 	angular
 		.module('dashboardApp')
-		.constant('networkConstants', {apiUrl: 'http://localhost:3000/api', requestTimeout: 30000});
+		.constant('networkConstants', {apiUrl: 'http://localhost:3000/api/', requestTimeout: 30000});
 })();
