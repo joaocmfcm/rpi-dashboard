@@ -4,7 +4,7 @@
 
 .card-container{
 	background-color: $sidebar-color;
-	padding: $default-margin;
+	padding: $default-margin/2;
 	
 	dl{
 		margin-bottom: 0px;
@@ -21,11 +21,12 @@
 	.card-title{
 		text-transform: uppercase;
 		margin-top: 0px;
+		margin-left: 15px;
 		color: $white;
 		position: absolute;
-		top: -33px;
+		top: -42px;
 		left: 0px;
-		padding: $default-margin/4 $default-margin;
+		padding: $default-margin/2 $default-margin/2;
 		background-color: lighten($sidebar-color, 0%);
 	}
 }

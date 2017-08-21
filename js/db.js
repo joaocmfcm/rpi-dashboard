@@ -8,7 +8,7 @@
 var service = require('./models/service.js');
 var logger = require('./logger.js');
 
-_createService = function(req, res){
+createService = function(req, res){
 	var data = req.body;
 	var promise = new Promise(service.add.bind(null, data)).then(result => {
 		logger.logObject(result);
@@ -19,7 +19,7 @@ _createService = function(req, res){
 	});
 };
 
-_readServices = function(req, res){
+readServices = function(req, res){
 	var query, sort, limit;
 		
 	query = req.query.query ? req.query.query : '';
@@ -35,7 +35,7 @@ _readServices = function(req, res){
 	});
 };
 
-_editService = function(req, res){
+editService = function(req, res){
 	var data = req.body;
 
 	var promise = new Promise(service.edit.bind(null, data)).then(result => {
@@ -47,7 +47,7 @@ _editService = function(req, res){
 	});
 };
 
-_deleteService = function(req, res){
+deleteService = function(req, res){
 	var id = req.params.id;
 
 	var promise = new Promise(service.delete.bind(null, id)).then(result => {
@@ -60,8 +60,8 @@ _deleteService = function(req, res){
 };
 
 module.exports = {
-	createService: _createService,
-	readServices: _readServices,
-	editService: _editService,
-	deleteService: _deleteService
+	createService: createService,
+	readServices: readServices,
+	editService: editService,
+	deleteService: deleteService
 };

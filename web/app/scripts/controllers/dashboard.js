@@ -17,7 +17,5 @@
 	function DashboardController(){
 		/* jshint validthis: true */
 		var vm = this;
-
-		vm.title = 'dash';
 	}
 })();

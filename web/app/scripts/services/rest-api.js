@@ -19,10 +19,31 @@
     		$get: function(){
     			return $http({method: 'GET', url: networkConstants.apiUrl + 'system'});
     		}
-        }
+        };
+
+        var cpu = {
+            $get: function(){
+                return $http({method: 'GET', url: networkConstants.apiUrl + 'cpu'});
+            }
+        };
+
+        var ram = {
+            $get: function(){
+                return $http({method: 'GET', url: networkConstants.apiUrl + 'ram'});
+            }
+        };
+
+        var drives = {
+            $get: function(){
+                return $http({method: 'GET', url: networkConstants.apiUrl + 'drives'});
+            }
+        };
 
         var api = {
-            system: system
+            system: system,
+            cpu: cpu,
+            ram: ram,
+            drives: drives,
         };
 
         return api;       
