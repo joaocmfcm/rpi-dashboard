@@ -28,17 +28,7 @@ RAM.add = function(data, resolve, reject){
 };
 
 RAM.read = function(query, limit, sort, resolve, reject){
-	//RAM.find({'name': new RegExp(query, 'i')}).limit(limit).sort(sort).then(result => resolve(result)).catch(error => reject(error));	
-};
-
-RAM.edit = function(data, resolve, reject){
-	var id = data._id;
-	delete data._id;
-	RAM.update({'_id': id}, data).then(result => resolve(result)).catch(error => reject(error));	
-};
-
-RAM.delete = function(id, resolve, reject){
-	RAM.remove({'_id': id}).then(result => resolve(result)).catch(error => reject(error));	
+	RAM.find({}, '-_id used free createdAt').limit(limit).sort(sort).then(result => resolve(result)).catch(error => reject(error));	
 };
 
 module.exports = RAM;

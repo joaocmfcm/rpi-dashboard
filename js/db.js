@@ -69,7 +69,7 @@ deleteService = function(req, res){
  * @description
  * CPU queries
  */
-addCPUReading = function(data){
+createCPUReading = function(data){
 	var promise = new Promise(cpu.add.bind(null, data)).then(result => {
 		//logger.logObject(result);
 	}).catch(error => {
@@ -77,15 +77,48 @@ addCPUReading = function(data){
 	});
 };
 
+readCPUReadings = function(req, res){
+	var query, sort, limit;
+		
+	query = req.query.query ? req.query.query : '';
+	limit = req.query.limit ? Number(req.query.limit) : 30000;
+	sort = req.query.sort ? req.query.sort : '+createdAt';
+
+	var promise = new Promise(cpu.read.bind(null, query, limit, sort)).then(result => {
+		//logger.logObject(result);
+		res.json(result);
+	}).catch(error => {
+		logger.logError(error);
+		res.status(500).json(error);
+	});
+};
+
+
 /**
  * @description
  * RAM queries
  */
-addRAMReading = function(data){
+createRAMReading = function(data){
 	var promise = new Promise(ram.add.bind(null, data)).then(result => {
 		//logger.logObject(result);
 	}).catch(error => {
 		logger.logError(error);
+	});
+};
+
+readRAMReadings = function(req, res){
+	var query, sort, limit;
+		
+	query = req.query.query ? req.query.query : '';
+	limit = req.query.limit ? Number(req.query.limit) : 30000;
+	sort = req.query.sort ? req.query.sort : '+createdAt';
+
+	var promise = new Promise(ram.read.bind(null, query, limit, sort)).then(result => {
+		//logger.logObject(result);
+		res.json(result);
+	}).catch(error => {
+		logger.logError(error);
+		res.status(500).json(error);
 	});
 };
 
@@ -94,6 +127,8 @@ module.exports = {
 	readServices: readServices,
 	editService: editService,
 	deleteService: deleteService,
-	addCPUReading: addCPUReading,
-	addRAMReading: addRAMReading
+	createCPUReading: createCPUReading,
+	readCPUReadings: readCPUReadings,
+	createRAMReading: createRAMReading,
+	readRAMReadings: readRAMReadings,
 };

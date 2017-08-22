@@ -28,17 +28,7 @@ CPU.add = function(data, resolve, reject){
 };
 
 CPU.read = function(query, limit, sort, resolve, reject){
-	//CPU.find({'name': new RegExp(query, 'i')}).limit(limit).sort(sort).then(result => resolve(result)).catch(error => reject(error));	
-};
-
-CPU.edit = function(data, resolve, reject){
-	var id = data._id;
-	delete data._id;
-	CPU.update({'_id': id}, data).then(result => resolve(result)).catch(error => reject(error));	
-};
-
-CPU.delete = function(id, resolve, reject){
-	CPU.remove({'_id': id}).then(result => resolve(result)).catch(error => reject(error));	
+	CPU.find({}, '-_id load temp createdAt').limit(limit).sort(sort).then(result => resolve(result)).catch(error => reject(error));	
 };
 
 module.exports = CPU;

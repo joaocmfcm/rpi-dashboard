@@ -36,4 +36,7 @@ router.post('/api/dashboard/service', db.createService);
 router.put('/api/dashboard/service', db.editService);
 router.delete('/api/dashboard/service/:id', db.deleteService);
 
+router.get('/api/cpu/readings', db.readCPUReadings);
+router.get('/api/ram/readings', db.readRAMReadings);
+
 module.exports = router;
