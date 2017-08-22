@@ -63,7 +63,6 @@ getService = function(req, res, next){
 		var promise = new Promise(siConnector.getService.bind(null, req.params.serviceName)).then(data => {
 			logger.logObject(data);
 			res.json(data);
-
 		}).catch(error => {
 			logger.logError(error);
 			res.status(500).json(error);

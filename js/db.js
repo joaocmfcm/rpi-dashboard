@@ -6,8 +6,14 @@
  */
 
 var service = require('./models/service.js');
+var cpu = require('./models/cpu.js');
+var ram = require('./models/ram.js');
 var logger = require('./logger.js');
 
+/**
+ * @description
+ * Services queries
+ */
 createService = function(req, res){
 	var data = req.body;
 	var promise = new Promise(service.add.bind(null, data)).then(result => {
@@ -59,9 +65,35 @@ deleteService = function(req, res){
 	});
 };
 
+/**
+ * @description
+ * CPU queries
+ */
+addCPUReading = function(data){
+	var promise = new Promise(cpu.add.bind(null, data)).then(result => {
+		//logger.logObject(result);
+	}).catch(error => {
+		logger.logError(error);
+	});
+};
+
+/**
+ * @description
+ * RAM queries
+ */
+addRAMReading = function(data){
+	var promise = new Promise(ram.add.bind(null, data)).then(result => {
+		//logger.logObject(result);
+	}).catch(error => {
+		logger.logError(error);
+	});
+};
+
 module.exports = {
 	createService: createService,
 	readServices: readServices,
 	editService: editService,
-	deleteService: deleteService
+	deleteService: deleteService,
+	addCPUReading: addCPUReading,
+	addRAMReading: addRAMReading
 };

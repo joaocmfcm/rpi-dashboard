@@ -6,10 +6,14 @@ var bodyParser = require('body-parser');
 
 var routes = require('./js/routes');
 var logger = require('./js/logger.js');
+var scheduler = require('./js/scheduler');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/rpi-dashboard');
 mongoose.Promise = global.Promise;
+
+scheduler.startCPUDataCollecting();
+scheduler.startRAMDataCollecting();
 
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.json());
