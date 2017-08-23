@@ -1,22 +1,21 @@
 <div class="card-container">
-	<p class="card-title">CPU</p>
+	<p class="card-title">CPU <i class="fa fa-clickable" ng-class="vm.updateCard ? 'fa-toggle-on toggle-on' : 'fa-toggle-off toggle-off' " ng-click="vm.updateCard = !vm.updateCard"></i></p>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<dl class="">
-				<dt>Information</dt>
-				<dd>{{vm.cpuInfo.manufacturer}} {{vm.cpuInfo.brand}} @ {{vm.cpuInfo.speed.max}} GHz </dd>
-				<dt>Cores</dt>
-				<dd>{{vm.cpuInfo.cores}}</dd>
+				<dt>CPU Model</dt>
+				<dd>{{vm.cpuInfo.manufacturer}} {{vm.cpuInfo.brand}} @ {{vm.cpuInfo.speed.max}} GHz with {{vm.cpuInfo.cores}} Cores</dd>
 			</dl>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-4 left-border">
 			<dl class="">
-				<dt>Current Load</dt>
+				<dt>Load</dt>
 			</dl>
 			<p class="main-kpi-value">{{vm.lastLoad}}%</p>
-
+		</div>
+		<div class="col-md-4 left-border">
 			<dl class="">
-				<dt>Current Temperature</dt>
+				<dt>Temperature</dt>
 			</dl>
 			<p class="main-kpi-value-alt">{{vm.lastTemp}}Cº</p>
 		</div>

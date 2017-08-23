@@ -28,6 +28,10 @@ body{
 	margin-left: $sidebar-width;
 }
 
+*:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
 
 /***
 **** Links
@@ -36,5 +40,17 @@ a{
 	color: $link-color;
 	&:hover{
 		cursor: pointer;
+	}
+}
+
+.fa-clickable{
+	&:hover{
+		cursor: pointer;
+	}
+	&.toggle-on{
+		color: $dashboard-green;	
+	}
+	&.toggle-off{
+		color: $dashboard-red;
 	}
 }

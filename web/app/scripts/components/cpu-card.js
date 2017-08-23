@@ -16,16 +16,15 @@
             controllerAs: 'vm'
         });
 
-    Controller.$inject = ['RestApiService', '$timeout', '$element', 'colors'];
+    Controller.$inject = ['RestApiService', '$timeout', '$element', 'colors', '$scope'];
 
-    function Controller(RestApiService, $timeout, $element, colors){
+    function Controller(RestApiService, $timeout, $element, colors, $scope){
     	var vm = this;
 
-        vm.temperature = [];
-        vm.load = [];
+        // Toggle to determine if the card should remotely update its data
+        vm.updateCard = true;
 
-
-        vm.cardColor = '';
+        // Chart configuration
         vm.chartConfig = {
             useHighStocks: true,
             chart: {
@@ -50,14 +49,12 @@
                 labels: {
                     format: '{value}'
                 },
-                gridLineColor: ''
-                /*visible: false,*/
-               
+                visible: false,
             },
             navigator: {
                 enabled: true,
                 series: {
-                    color: colors.blue,
+                    color: colors.dashboard_purple,
                     lineWidth: 1
                 }
             },
@@ -81,9 +78,15 @@
                 }
             }    
         };
+    	
+        // Watches the toggle to switch the data fetching for this card
+        $scope.$watch('vm.updateCard', function(current, original) {
+            if(current){
+                _getCPUInfo();
+            }
+        });
 
-    	_getCPUInfo();
-
+        // Fetches CPU information from server
     	function _getCPUInfo(){
     		RestApiService.cpu.$get().then(function(result){
     			if(result.data){
@@ -97,32 +100,38 @@
     		});
     	};
 
+        // Fetches the CPU readings stored in the server
         function _getCPUReadings(){
             RestApiService.cpu.readings.$get().then(function(result){
                 if(result.data){
                     var processedCPUReadings = _processCPUReadings(result.data);
-                    vm.chartConfig.series = [{id:'cpuload', data: processedCPUReadings.load, color: colors.blue, name: 'CPU %', showInLegend: false}, {id:'temp', color: colors.pink, data: processedCPUReadings.temp, name: 'Temperature Cº', showInLegend: false}];
+                    
+                    vm.chartConfig.series = [{id:'cpuload', data: processedCPUReadings.load, color: colors.dashboard_purple, name: 'CPU %', showInLegend: false}, {id:'temp', color: colors.dashboard_pink, data: processedCPUReadings.temp, name: 'Temperature Cº', showInLegend: false}];
+                    
                     vm.chartConfig.xAxis.min = moment().subtract(1, 'minutes').valueOf();
                     vm.chartConfig.xAxis.max = moment().valueOf();
+                    
                     vm.lastTemp = processedCPUReadings.temp[processedCPUReadings.temp.length-1][1];
                     vm.lastLoad = processedCPUReadings.load[processedCPUReadings.load.length-1][1];
 
-                    $timeout(function(){
-                        _getCPUReadings();  
-                    }, 10000);
                     vm.chartConfig.chart.width = angular.element("#cpu-chart")[0].offsetWidth-30;
+
+                    $timeout(function(){
+                        if(vm.updateCard) _getCPUReadings();  
+                    }, 5000);
                 }
             }, function(error){
                 // TODO: show error
             });
         };
 
+        // Processes the array of readings to retrieve formatted information to populate the charts
         function _processCPUReadings(data){
             var cpuLoadValues = [];
             var cpuTempValues = [];
             data.forEach(function(entry){
-                cpuLoadValues.push([moment(entry.createdAt).valueOf(), Number(entry.load.toFixed(2))]);
-                cpuTempValues.push([moment(entry.createdAt).valueOf(), Number(entry.temp.toFixed(2))]);
+                cpuLoadValues.push([moment(entry.createdAt).valueOf(), Number(entry.load.toFixed(1))]);
+                cpuTempValues.push([moment(entry.createdAt).valueOf(), Number(entry.temp.toFixed(1))]);
             });
 
             return {load: cpuLoadValues, temp: cpuTempValues};
