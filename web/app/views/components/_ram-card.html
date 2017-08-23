@@ -1,0 +1,27 @@
+<div class="card-container">
+	<p class="card-title">RAM <i class="fa fa-clickable" ng-class="vm.updateCard ? 'fa-toggle-on toggle-on' : 'fa-toggle-off toggle-off' " ng-click="vm.updateCard = !vm.updateCard"></i></p>
+	<div class="row">
+		<div class="col-md-6">
+			<dl class="">
+				<dt>Used</dt>
+			</dl>
+			<p class="kpi-value red">{{vm.lastUsed}}MB</p>
+		</div>
+
+		<div class="col-md-6 left-border">
+			<dl class="">
+				<dt>Free</dt>
+			</dl>
+			<p class="kpi-value green">{{vm.lastFree}}MB</p>
+		</div>
+		
+		<div class="col-md-12" id="ram-chart">
+			<dl class="">
+				<dt>RAM Usage</dt>
+			</dl>
+			<div class="chart-container">				
+				<highchart id="ram-load-chart" config="vm.chartConfig"></highchart>
+			</div>
+		</div>	
+	</div>
+</div>

@@ -32,20 +32,13 @@
 		background-color: lighten($sidebar-color, 0%);
 		box-shadow: $container-box-shadow;
 	}
-	
+
 	.left-border{
 		border-left: 1px solid $grey;
 	}
 }
 
-.main-kpi-value{
-	color: $dashboard-purple;
+.kpi-value{
 	font-size: $font-size-extra-large*2.5;
 	/* font-weight: bold; */
-	
-}
-
-.main-kpi-value-alt{
-	@extend .main-kpi-value;
-	color: $dashboard-pink;
 }

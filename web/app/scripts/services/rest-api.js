@@ -36,6 +36,12 @@
         var ram = {
             $get: function(){
                 return $http({method: 'GET', url: networkConstants.apiUrl + 'ram'});
+            },
+
+            readings: {
+                $get: function(){
+                    return $http({method: 'GET', url: networkConstants.apiUrl + 'ram/readings'});
+                },
             }
         };
 

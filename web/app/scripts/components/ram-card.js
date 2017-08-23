@@ -10,9 +10,9 @@
 
     angular
         .module('dashboardApp')
-        .component('cpuCard', {
+        .component('ramCard', {
             controller: Controller,
-            templateUrl: '/views/components/_cpu-card.html',
+            templateUrl: '/views/components/_ram-card.html',
             controllerAs: 'vm'
         });
 
@@ -37,24 +37,46 @@
                 spacingBottom: 0,
                 width: 100,
                 height: 200,
-                animation: false
+                animation: false,
+                alignTicks: false
             },
             xAxis: {
                 type: 'datetime',
             },
-            yAxis: {
+            yAxis:[{
                 title: {
                     text: ''
                 },
                 labels: {
-                    format: '{value}'
+                    style: {
+                        color: colors.dashboard_red
+                    },
+                    formatter: function () {
+                        return this.value + 'MB';
+                    }
                 },
-                visible: false,
-            },
+                //gridLineColor: colors.dashboard_red
+                /*visible: false,*/
+            },{
+                title: {
+                    text: ''
+                },
+                opposite: true,
+                labels: {
+                    style: {
+                        color: colors.dashboard_green
+                    },
+                    formatter: function () {
+                        return this.value + 'MB';
+                    }
+                },
+                //gridLineColor: colors.dashboard_green
+                /*visible: false,*/
+            }],
             navigator: {
                 enabled: true,
                 series: {
-                    color: colors.dashboard_purple,
+                    color: colors.dashboard_red,
                     lineWidth: 1
                 }
             },
@@ -82,45 +104,31 @@
         // Watches the toggle to switch the data fetching for this card
         $scope.$watch('vm.updateCard', function(current, original) {
             if(current){
-                _getCPUInfo();
+                _getRAMReadings();
             }
         });
 
-        // Fetches CPU information from server
-    	function _getCPUInfo(){
-    		RestApiService.cpu.$get().then(function(result){
-    			if(result.data){
-                    var now = new Date();
-    				vm.cpuInfo = result.data.info;
-                    vm.cpuInfo.speed = result.data.speed;
-                    _getCPUReadings();
-    			}
-    		}, function(error){
-    			// TODO: show error
-    		});
-    	};
-
         // Fetches the CPU readings stored in the server
-        function _getCPUReadings(){
-            RestApiService.cpu.readings.$get().then(function(result){
+        function _getRAMReadings(){
+            RestApiService.ram.readings.$get().then(function(result){
                 if(result.data){
-                    var processedCPUReadings = _processCPUReadings(result.data);
+                    var processedRAMReadings = _processRAMReadings(result.data);
                     
                     vm.chartConfig.series = [
-                        {id:'cpuload', data: processedCPUReadings.load, color: colors.dashboard_purple, name: 'CPU (%)', showInLegend: false}, 
-                        {id:'temp', color: colors.dashboard_yellow, data: processedCPUReadings.temp, name: 'Temperature (Cº)', showInLegend: false}
+                        {id:'ramUsed', data: processedRAMReadings.used, color: colors.dashboard_red, name: 'Used memory (MB)', showInLegend: false}, 
+                        {id:'free', yAxis: 1, color: colors.dashboard_green, data: processedRAMReadings.free, name: 'Free memory (MB)', showInLegend: false}
                     ];
                     
                     vm.chartConfig.xAxis.min = moment().subtract(1, 'minutes').valueOf();
                     vm.chartConfig.xAxis.max = moment().valueOf();
                     
-                    vm.lastTemp = processedCPUReadings.temp[processedCPUReadings.temp.length-1][1];
-                    vm.lastLoad = processedCPUReadings.load[processedCPUReadings.load.length-1][1];
+                    vm.lastFree = processedRAMReadings.free[processedRAMReadings.free.length-1][1];
+                    vm.lastUsed = processedRAMReadings.used[processedRAMReadings.used.length-1][1];
 
                     vm.chartConfig.chart.width = angular.element("#cpu-chart")[0].offsetWidth-30;
 
                     $timeout(function(){
-                        if(vm.updateCard) _getCPUReadings();  
+                        if(vm.updateCard) _getRAMReadings();  
                     }, 5000);
                 }
             }, function(error){
@@ -129,15 +137,15 @@
         };
 
         // Processes the array of readings to retrieve formatted information to populate the charts
-        function _processCPUReadings(data){
-            var cpuLoadValues = [];
-            var cpuTempValues = [];
+        function _processRAMReadings(data){
+            var ramUsedValues = [];
+            var ramFreeValues = [];
             data.forEach(function(entry){
-                cpuLoadValues.push([moment(entry.createdAt).valueOf(), Number(entry.load.toFixed(1))]);
-                cpuTempValues.push([moment(entry.createdAt).valueOf(), Number(entry.temp.toFixed(1))]);
+                ramUsedValues.push([moment(entry.createdAt).valueOf(), Number(entry.used.toFixed(1))]);
+                ramFreeValues.push([moment(entry.createdAt).valueOf(), Number(entry.free.toFixed(1))]);
             });
 
-            return {load: cpuLoadValues, temp: cpuTempValues};
+            return {used: ramUsedValues, free: ramFreeValues};
         }
     }
 
