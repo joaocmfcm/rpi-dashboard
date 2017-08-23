@@ -6,6 +6,7 @@
 	background-color: $sidebar-color;
 	padding: $default-margin;
 	margin-bottom: $default-margin *4;
+	box-shadow: $container-box-shadow;
 	
 	dl{
 		margin-bottom: 0px;
@@ -29,8 +30,9 @@
 		left: 0px;
 		padding: $default-margin/2 $default-margin;
 		background-color: lighten($sidebar-color, 0%);
+		box-shadow: $container-box-shadow;
 	}
-
+	
 	.left-border{
 		border-left: 1px solid $grey;
 	}

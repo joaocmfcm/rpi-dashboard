@@ -10,6 +10,7 @@ $sidebar-shadow: 1px 1px 1px lighten($sidebar-color, 10%);
     bottom: 0px;
 	background-color: $sidebar-color;
 	width: $sidebar-width;
+	box-shadow: $container-box-shadow;
 }
 
 .sidebar-container{
