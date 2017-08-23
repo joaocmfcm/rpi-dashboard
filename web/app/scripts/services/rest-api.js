@@ -24,6 +24,12 @@
         var cpu = {
             $get: function(){
                 return $http({method: 'GET', url: networkConstants.apiUrl + 'cpu'});
+            },
+
+            readings: {
+                $get: function(){
+                    return $http({method: 'GET', url: networkConstants.apiUrl + 'cpu/readings'});
+                },
             }
         };
 

@@ -1,9 +1,32 @@
 <div class="card-container">
 	<p class="card-title">CPU</p>
-	<dl class="">
-		<dt>Information</dt>
-		<dd>{{vm.cpuInfo.manufacturer}} {{vm.cpuInfo.brand}} @ {{vm.cpuInfo.speed.max}} GHz </dd>
-		<dt>Cores</dt>
-		<dd>{{vm.cpuInfo.cores}}</dd>
-	</dl>
+	<div class="row">
+		<div class="col-md-6">
+			<dl class="">
+				<dt>Information</dt>
+				<dd>{{vm.cpuInfo.manufacturer}} {{vm.cpuInfo.brand}} @ {{vm.cpuInfo.speed.max}} GHz </dd>
+				<dt>Cores</dt>
+				<dd>{{vm.cpuInfo.cores}}</dd>
+			</dl>
+		</div>
+		<div class="col-md-6">
+			<dl class="">
+				<dt>Current Load</dt>
+			</dl>
+			<p class="main-kpi-value">{{vm.lastLoad}}%</p>
+
+			<dl class="">
+				<dt>Current Temperature</dt>
+			</dl>
+			<p class="main-kpi-value-alt">{{vm.lastTemp}}Cº</p>
+		</div>
+		<div class="col-md-12" id="cpu-chart">
+			<dl class="">
+				<dt>CPU History</dt>
+			</dl>
+			<div class="chart-container">				
+				<highchart id="cpu-load-chart" config="vm.chartConfig"></highchart>
+			</div>
+		</div>	
+	</div>
 </div>

@@ -4,7 +4,8 @@
 
 .card-container{
 	background-color: $sidebar-color;
-	padding: $default-margin/2;
+	padding: $default-margin;
+	margin-bottom: $default-margin *4;
 	
 	dl{
 		margin-bottom: 0px;
@@ -14,7 +15,7 @@
 		}
 
 		dd{
-
+			margin-bottom: $default-margin/2;
 		}
 	}
 
@@ -26,7 +27,19 @@
 		position: absolute;
 		top: -42px;
 		left: 0px;
-		padding: $default-margin/2 $default-margin/2;
+		padding: $default-margin/2 $default-margin;
 		background-color: lighten($sidebar-color, 0%);
 	}
+}
+
+.main-kpi-value{
+	color: $dashboard-blue;
+	/* font-size: $font-size-extra-large; */
+	font-weight: bold;
+	
+}
+
+.main-kpi-value-alt{
+	@extend .main-kpi-value;
+	color: $dashboard-pink;
 }
