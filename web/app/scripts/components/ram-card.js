@@ -3,7 +3,7 @@
 
     /**
      * @description
-     * Component that displays a card with the cpu information
+     * Component that displays a card with the RAM information
      * @observations
      * 
      */
@@ -74,7 +74,7 @@
             }
         });
 
-        // Fetches the CPU readings stored in the server
+        // Fetches the RAM readings stored in the server
         function _getRAMReadings(){
             RestApiService.ram.readings.$get().then(function(result){
                 if(result.data){
@@ -91,7 +91,7 @@
                     vm.lastFree = processedRAMReadings.free[processedRAMReadings.free.length-1][1];
                     vm.lastUsed = processedRAMReadings.used[processedRAMReadings.used.length-1][1];
 
-                    vm.chartConfig.chart.width = angular.element("#cpu-chart")[0].offsetWidth-30;
+                    vm.chartConfig.chart.width = angular.element("#ram-chart")[0].offsetWidth-30;
 
                     $timeout(function(){
                         if(vm.updateCard) _getRAMReadings();  

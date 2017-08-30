@@ -37,3 +37,42 @@
 	font-size: $font-size-extra-large*2.5;
 	/* font-weight: bold; */
 }
+
+
+@mixin seriesColor($color){
+	path{
+		stroke-width: 1;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		stroke: $color !important;
+	}
+	text{
+		tspan:nth-child(2){
+			fill: $color!important;
+		}
+	}
+}
+
+#ram-card{
+	$ram-color-0: $dashboard-blue;
+	$ram-color-1: $dashboard-pink;
+	.kpi-0{
+		color: $ram-color-0;
+	}
+	.kpi-1{
+		color: $ram-color-1;
+	}
+	.highcharts-color-0{
+		@include seriesColor($ram-color-0);
+	}
+	.highcharts-color-1{
+		@include seriesColor($ram-color-1);
+	}
+	.highcharts-series-2{
+		@include seriesColor($ram-color-0);
+	}
+}
+
+
+
+

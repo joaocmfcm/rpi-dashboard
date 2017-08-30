@@ -23,7 +23,7 @@
 			dashboard_yellow: 'rgb(239,214,0)'
 		})
 		.constant('splineConfig', {
-			useHighStocks: true,
+			/*useHighStocks: true,*/
             chart: {
                 type: 'spline',
                 zoomType: 'x',
@@ -32,7 +32,7 @@
                 spacingLeft: 0,
                 spacingRight: 0,
                 spacingBottom: 0,
-                width: 100,
+                width: 50,
                 height: 200,
                 animation: false
             },
