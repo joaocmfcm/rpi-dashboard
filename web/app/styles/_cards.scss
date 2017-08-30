@@ -3,16 +3,17 @@
 ***/
 
 .card-container{
-	background-color: $sidebar-color;
+	background-color: $card-color;
 	padding: $default-margin;
 	margin-bottom: $default-margin *4;
-	box-shadow: $container-box-shadow;
+	border: 1px solid $light-grey;
+	border-radius: 2px;
 	
 	dl{
 		margin-bottom: 0px;
 		dt{
-			color: $grey;
-			text-transform: uppercase;
+			color: $black;
+			/* text-transform: uppercase; */
 		}
 
 		dd{
@@ -22,19 +23,13 @@
 
 	.card-title{
 		text-transform: uppercase;
-		margin-top: 0px;
-		margin-left: 15px;
-		color: $white;
-		position: absolute;
-		top: -42px;
-		left: 0px;
-		padding: $default-margin/2 $default-margin;
-		background-color: lighten($sidebar-color, 0%);
-		box-shadow: $container-box-shadow;
+		color: $black;
+		font-weight: bold;
+		font-size: 14px;
 	}
 
 	.left-border{
-		border-left: 1px solid $grey;
+		border-left: 1px solid $light-grey;
 	}
 }
 

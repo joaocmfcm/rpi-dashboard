@@ -1,5 +1,7 @@
 <div class="card-container">
 	<p class="card-title">CPU <i class="fa fa-clickable" ng-class="vm.updateCard ? 'fa-toggle-on toggle-on' : 'fa-toggle-off toggle-off' " ng-click="vm.updateCard = !vm.updateCard"></i></p>
+
+	<hr>
 	<div class="row">
 		<div class="col-md-4">
 			<dl class="">
@@ -17,7 +19,7 @@
 			<dl class="">
 				<dt>Temperature</dt>
 			</dl>
-			<p class="kpi-value yellow">{{vm.lastTemp}}Cº</p>
+			<p class="kpi-value blue">{{vm.lastTemp}}Cº</p>
 		</div>
 		<div class="col-md-12" id="cpu-chart">
 			<dl class="">

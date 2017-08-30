@@ -13,7 +13,7 @@ $font-family-base:        'Lato', sans-serif !default;
 
 $font-size-base:          12px !default;
 $font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
-$font-size-extra-large:         ceil(($font-size-base * 1.5)) !default;
+$font-size-extra-large:   ceil(($font-size-base * 1.5)) !default;
 $font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
 $font-size-very-small:    ceil(($font-size-base * 0.65)) !default; //
 
@@ -25,20 +25,25 @@ $font-size-very-small:    ceil(($font-size-base * 0.65)) !default; //
 $black: #515255;
 /* $white: #fff; */
 $white: #eaeaea;
-$dashboard-red: rgb(202,53,78);	
-$dashboard-green: rgb(51,219,140);
-$dashboard-purple: rgb(119,58,247);
+$dashboard-red: rgb(225,60,72);	
+$dashboard-green: rgb(21,178,138	);
+$dashboard-purple: rgb(46,21,106);
 $dashboard-blue: rgba(65,90,254,1.0);
 $dashboard-light-blue: rgba(94,131,255,1);
 $dashboard-turquoise: rgba(49,173,186,1);
 $dashboard-pink: rgb(228,23,102);
 $dashboard-orange: rgb(253,100,105);
 $dashboard-yellow: rgb(239,214,0);
-$grey: rgb(67,66,91);
+$grey: rgb(122,125,135);
+$light-grey: rgb(234,234,234);
 
 /* $background-color: rgb(26,26,43); */
-$background-color: #303048;
-$sidebar-color: rgb(34,33,51);
+//$background-color: #303048;
+$background-color: rgb(244,244,244);
+//$sidebar-color: rgb(34,33,51);
+$sidebar-color: rgb(39,41,54);
+$card-color: #fff;
+
 $link-color: $dashboard-green;
 
 

@@ -16,9 +16,9 @@
             controllerAs: 'vm'
         });
 
-    Controller.$inject = ['RestApiService', '$timeout', '$element', 'colors', '$scope'];
+    Controller.$inject = ['RestApiService', '$timeout', '$element', 'colors', '$scope', 'splineConfig'];
 
-    function Controller(RestApiService, $timeout, $element, colors, $scope){
+    function Controller(RestApiService, $timeout, $element, colors, $scope, splineConfig){
     	var vm = this;
 
         // Toggle to determine if the card should remotely update its data
@@ -26,37 +26,20 @@
 
         // Chart configuration
         vm.chartConfig = {
-            useHighStocks: true,
-            chart: {
-                type: 'spline',
-                zoomType: 'x',
-                backgroundColor: 'transparent',
-                polar: true,
-                spacingLeft: 0,
-                spacingRight: 0,
-                spacingBottom: 0,
-                width: 100,
-                height: 200,
-                animation: false,
-                alignTicks: false
-            },
-            xAxis: {
-                type: 'datetime',
-            },
             yAxis:[{
                 title: {
                     text: ''
                 },
                 labels: {
                     style: {
-                        color: colors.dashboard_red
+                        //color: colors.dashboard_red
                     },
                     formatter: function () {
                         return this.value + 'MB';
                     }
                 },
-                //gridLineColor: colors.dashboard_red
-                /*visible: false,*/
+                gridLineColor: 'transparent',
+                visible: false,
             },{
                 title: {
                     text: ''
@@ -64,42 +47,25 @@
                 opposite: true,
                 labels: {
                     style: {
-                        color: colors.dashboard_green
+                        //color: colors.dashboard_green
                     },
                     formatter: function () {
                         return this.value + 'MB';
                     }
                 },
-                //gridLineColor: colors.dashboard_green
-                /*visible: false,*/
+                gridLineColor: 'transparent',
+                visible: false,
             }],
             navigator: {
                 enabled: true,
                 series: {
-                    color: colors.dashboard_red,
+                    //color: colors.dashboard_red,
                     lineWidth: 1
                 }
-            },
-            title: {
-                text: '',
-            },
-            credits: {
-                enabled: false
-            },
-            plotOptions: {
-                spline: {                    
-                    marker: {
-                        radius: 2,
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                }
-            }    
+            },      
         };
+
+        angular.extend(vm.chartConfig, splineConfig);
     	
         // Watches the toggle to switch the data fetching for this card
         $scope.$watch('vm.updateCard', function(current, original) {
@@ -115,8 +81,8 @@
                     var processedRAMReadings = _processRAMReadings(result.data);
                     
                     vm.chartConfig.series = [
-                        {id:'ramUsed', data: processedRAMReadings.used, color: colors.dashboard_red, name: 'Used memory (MB)', showInLegend: false}, 
-                        {id:'free', yAxis: 1, color: colors.dashboard_green, data: processedRAMReadings.free, name: 'Free memory (MB)', showInLegend: false}
+                        {id:'ramUsed', data: processedRAMReadings.used, name: 'Used memory (MB)', showInLegend: false}, 
+                        {id:'free', yAxis: 1, data: processedRAMReadings.free, name: 'Free memory (MB)', showInLegend: false}
                     ];
                     
                     vm.chartConfig.xAxis.min = moment().subtract(1, 'minutes').valueOf();

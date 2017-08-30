@@ -16,9 +16,9 @@
             controllerAs: 'vm'
         });
 
-    Controller.$inject = ['RestApiService', '$timeout', '$element', 'colors', '$scope'];
+    Controller.$inject = ['RestApiService', '$timeout', '$element', 'colors', '$scope', 'splineConfig'];
 
-    function Controller(RestApiService, $timeout, $element, colors, $scope){
+    function Controller(RestApiService, $timeout, $element, colors, $scope, splineConfig){
     	var vm = this;
 
         // Toggle to determine if the card should remotely update its data
@@ -26,22 +26,6 @@
 
         // Chart configuration
         vm.chartConfig = {
-            useHighStocks: true,
-            chart: {
-                type: 'spline',
-                zoomType: 'x',
-                backgroundColor: 'transparent',
-                polar: true,
-                spacingLeft: 0,
-                spacingRight: 0,
-                spacingBottom: 0,
-                width: 100,
-                height: 200,
-                animation: false
-            },
-            xAxis: {
-                type: 'datetime',
-            },
             yAxis: {
                 title: {
                     text: ''
@@ -57,27 +41,10 @@
                     color: colors.dashboard_purple,
                     lineWidth: 1
                 }
-            },
-            title: {
-                text: '',
-            },
-            credits: {
-                enabled: false
-            },
-            plotOptions: {
-                spline: {                    
-                    marker: {
-                        radius: 2,
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                }
-            }    
+            }
         };
+
+        angular.extend(vm.chartConfig, splineConfig);
     	
         // Watches the toggle to switch the data fetching for this card
         $scope.$watch('vm.updateCard', function(current, original) {
@@ -108,7 +75,7 @@
                     
                     vm.chartConfig.series = [
                         {id:'cpuload', data: processedCPUReadings.load, color: colors.dashboard_purple, name: 'CPU (%)', showInLegend: false}, 
-                        {id:'temp', color: colors.dashboard_yellow, data: processedCPUReadings.temp, name: 'Temperature (Cº)', showInLegend: false}
+                        {id:'temp', color: colors.dashboard_blue, data: processedCPUReadings.temp, name: 'Temperature (Cº)', showInLegend: false}
                     ];
                     
                     vm.chartConfig.xAxis.min = moment().subtract(1, 'minutes').valueOf();
