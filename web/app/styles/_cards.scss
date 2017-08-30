@@ -54,8 +54,8 @@
 }
 
 #ram-card{
-	$ram-color-0: $dashboard-blue;
-	$ram-color-1: $dashboard-pink;
+	$ram-color-0: $dashboard-green;
+	$ram-color-1: $dashboard-purple;
 	.kpi-0{
 		color: $ram-color-0;
 	}
@@ -70,6 +70,32 @@
 	}
 	.highcharts-series-2{
 		@include seriesColor($ram-color-0);
+	}
+	.highcharts-series-3{
+		@include seriesColor($ram-color-1);
+	}
+}
+
+#cpu-card{
+	$ram-color-0: $dashboard-orange;
+	$ram-color-1: $dashboard-turquoise;
+	.kpi-0{
+		color: $ram-color-0;
+	}
+	.kpi-1{
+		color: $ram-color-1;
+	}
+	.highcharts-color-0{
+		@include seriesColor($ram-color-0);
+	}
+	.highcharts-color-1{
+		@include seriesColor($ram-color-1);
+	}
+	.highcharts-series-2{
+		@include seriesColor($ram-color-0);
+	}
+	.highcharts-series-3{
+		@include seriesColor($ram-color-1);
 	}
 }
 

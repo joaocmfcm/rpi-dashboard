@@ -1,4 +1,4 @@
-<div class="card-container">
+<div class="card-container" id="cpu-card">
 	<p class="card-title">CPU <i class="fa fa-clickable" ng-class="vm.updateCard ? 'fa-toggle-on toggle-on' : 'fa-toggle-off toggle-off' " ng-click="vm.updateCard = !vm.updateCard"></i></p>
 
 	<hr>
@@ -13,13 +13,13 @@
 			<dl class="">
 				<dt>Load</dt>
 			</dl>
-			<p class="kpi-value">{{vm.lastLoad}}%</p>
+			<p class="kpi-value kpi-0">{{vm.lastLoad}}%</p>
 		</div>
 		<div class="col-md-4 left-border">
 			<dl class="">
 				<dt>Temperature</dt>
 			</dl>
-			<p class="kpi-value">{{vm.lastTemp}}Cº</p>
+			<p class="kpi-value kpi-1">{{vm.lastTemp}}Cº</p>
 		</div>
 		<div class="col-md-12" id="cpu-chart">
 			<dl class="">

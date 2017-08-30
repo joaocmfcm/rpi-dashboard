@@ -56,13 +56,6 @@
                 gridLineColor: 'transparent',
                 visible: false,
             }],
-            navigator: {
-                enabled: true,
-                series: {
-                    //color: colors.dashboard_red,
-                    lineWidth: 1
-                }
-            },      
         };
 
         angular.extend(vm.chartConfig, splineConfig);

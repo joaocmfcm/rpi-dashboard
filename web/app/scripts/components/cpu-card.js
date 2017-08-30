@@ -34,13 +34,6 @@
                     format: '{value}'
                 },
                 visible: false,
-            },
-            navigator: {
-                enabled: true,
-                series: {
-                    color: colors.dashboard_purple,
-                    lineWidth: 1
-                }
             }
         };
 
@@ -74,8 +67,8 @@
                     var processedCPUReadings = _processCPUReadings(result.data);
                     
                     vm.chartConfig.series = [
-                        {id:'cpuload', data: processedCPUReadings.load, color: colors.dashboard_purple, name: 'CPU (%)', showInLegend: false}, 
-                        {id:'temp', color: colors.dashboard_blue, data: processedCPUReadings.temp, name: 'Temperature (Cº)', showInLegend: false}
+                        {id:'cpuload', data: processedCPUReadings.load, name: 'CPU (%)', showInLegend: false}, 
+                        {id:'temp', data: processedCPUReadings.temp, name: 'Temperature (Cº)', showInLegend: false}
                     ];
                     
                     vm.chartConfig.xAxis.min = moment().subtract(1, 'minutes').valueOf();

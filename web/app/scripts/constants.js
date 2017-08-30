@@ -45,7 +45,13 @@
             credits: {
                 enabled: false
             },
+            navigator: {
+                enabled: true,   
+            },
             plotOptions: {
+            	series: {
+                    showInNavigator: true // Global value
+                },
                 spline: {                    
                     marker: {
                         radius: 0,
