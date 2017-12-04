@@ -70,7 +70,7 @@
         // Fetches the RAM readings stored in the server
         function _getRAMReadings(){
             RestApiService.ram.readings.$get().then(function(result){
-                if(result.data){
+                if(result.data && result.data.length){
                     var processedRAMReadings = _processRAMReadings(result.data);
                     
                     vm.chartConfig.series = [

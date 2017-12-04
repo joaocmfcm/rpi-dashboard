@@ -25,7 +25,7 @@
 		text-transform: uppercase;
 		color: $black;
 		font-weight: bold;
-		font-size: 14px;
+		font-size: $font-size-large;
 	}
 
 	.left-border{
@@ -34,10 +34,9 @@
 }
 
 .kpi-value{
-	font-size: $font-size-extra-large*2.5;
+	font-size: $font-size-extra-large;
 	/* font-weight: bold; */
 }
-
 
 @mixin seriesColor($color){
 	path{
@@ -53,9 +52,10 @@
 	}
 }
 
+/* Specific Card configuration */
 #ram-card{
-	$ram-color-0: $dashboard-green;
-	$ram-color-1: $dashboard-purple;
+	$ram-color-0: $dashboard-orange;
+	$ram-color-1: $dashboard-turquoise;
 	.kpi-0{
 		color: $ram-color-0;
 	}

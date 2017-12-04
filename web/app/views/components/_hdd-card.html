@@ -1,0 +1,16 @@
+<div class="card-container" id="hdd-card">
+	<p class="card-title">hdd <i class="fa fa-clickable" ng-class="vm.updateCard ? 'fa-toggle-on toggle-on' : 'fa-toggle-off toggle-off' " ng-click="vm.updateCard = !vm.updateCard"></i></p>
+	
+	<hr>
+	
+	<div class="row">
+		<div class="col-md-12" id="hdd-chart">
+			<dl class="">
+				<dt>Hard Drive Usage</dt>
+			</dl>
+			<div class="chart-container">				
+				<highchart id="hdd-load-chart" config="vm.chartConfig"></highchart>
+			</div>
+		</div>	
+	</div>
+</div>

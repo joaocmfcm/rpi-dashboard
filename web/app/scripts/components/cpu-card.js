@@ -63,7 +63,7 @@
         // Fetches the CPU readings stored in the server
         function _getCPUReadings(){
             RestApiService.cpu.readings.$get().then(function(result){
-                if(result.data){
+                if(result.data && result.data.length){
                     var processedCPUReadings = _processCPUReadings(result.data);
                     
                     vm.chartConfig.series = [
