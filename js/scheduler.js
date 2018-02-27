@@ -37,7 +37,25 @@ startRAMDataCollecting = function(){
 	job.start();
 };
 
+startDrivesDataCollecting = function(){
+	logger.logInfo('Starting the scheduling of drives data collecting');
+	var job = cron.job("*/5 * * * * *", function(){
+		var promise = new Promise(siConnector.getDrives).then(data => {
+			var obj = data[0];
+			obj.size = (obj.size/1024/1024/1024).toFixed(2);
+			obj.used = (obj.used/1024/1024/1024).toFixed(2);
+			delete obj.mount;
+			delete obj.use;
+			db.createDrivesReading(obj);
+		}).catch(error => {
+			logger.logError(error);
+		});
+	}); 
+	job.start();
+};
+
 module.exports = {
 	startCPUDataCollecting: startCPUDataCollecting,
-	startRAMDataCollecting: startRAMDataCollecting
+	startRAMDataCollecting: startRAMDataCollecting,
+	startDrivesDataCollecting: startDrivesDataCollecting,
 };

@@ -38,5 +38,6 @@ router.delete('/api/dashboard/service/:id', db.deleteService);
 
 router.get('/api/cpu/readings', db.readCPUReadings);
 router.get('/api/ram/readings', db.readRAMReadings);
+/*router.get('/api/drives/readings', db.readDrivesReadings);*/
 
 module.exports = router;

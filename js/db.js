@@ -8,6 +8,7 @@
 var service = require('./models/service.js');
 var cpu = require('./models/cpu.js');
 var ram = require('./models/ram.js');
+var drives = require('./models/drives.js');
 var logger = require('./logger.js');
 
 /**
@@ -122,6 +123,34 @@ readRAMReadings = function(req, res){
 	});
 };
 
+/**
+ * @description
+ * Drives queries
+ */
+createDrivesReading = function(data){
+	var promise = new Promise(drives.add.bind(null, data)).then(result => {
+		//logger.logObject(result);
+	}).catch(error => {
+		logger.logError(error);
+	});
+};
+
+readDrivesReadings = function(req, res){
+	var query, sort, limit;
+		
+	query = req.query.query ? req.query.query : '';
+	limit = req.query.limit ? Number(req.query.limit) : 30000;
+	sort = req.query.sort ? req.query.sort : '+createdAt';
+
+	var promise = new Promise(drives.read.bind(null, query, limit, sort)).then(result => {
+		//logger.logObject(result);
+		res.json(result);
+	}).catch(error => {
+		logger.logError(error);
+		res.status(500).json(error);
+	});
+};
+
 module.exports = {
 	createService: createService,
 	readServices: readServices,
@@ -131,4 +160,6 @@ module.exports = {
 	readCPUReadings: readCPUReadings,
 	createRAMReading: createRAMReading,
 	readRAMReadings: readRAMReadings,
+	createDrivesReading: createDrivesReading,
+	readDrivesReadings: readDrivesReadings,
 };

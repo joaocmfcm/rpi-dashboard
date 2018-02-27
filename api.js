@@ -14,6 +14,7 @@ mongoose.Promise = global.Promise;
 
 scheduler.startCPUDataCollecting();
 scheduler.startRAMDataCollecting();
+scheduler.startDrivesDataCollecting();
 
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.json());
